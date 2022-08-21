@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"tg-currency-bot/coinranking"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -32,6 +33,9 @@ func (b *Bot) Start(tgToken, coinrankingToken string) {
 
 	updateCfg := tgbotapi.NewUpdate(0)
 	updateCfg.Timeout = 60
+
+	go http.ListenAndServe(":"+getenv("PORT"), nil)
+
 	b.update(updateCfg)
 }
 
